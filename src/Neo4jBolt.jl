@@ -302,7 +302,8 @@ function Base.run(session::Session, statement::Statement, parameters::Dict=Dict(
         :statement=> statement_metadata,
         :timeout=> statement_timeout,
         :on_success=> (_, r)->merge!(result_metadata, r),
-        :on_failure=> fail
+        :on_failure=> fail,
+        :bookmarks=> []
     )
 
     function done(_, summary_metadata)
