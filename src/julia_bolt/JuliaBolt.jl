@@ -254,7 +254,7 @@ function hello(c::Connection)
         logged_headers["credentials"] = "*******"
     end
     
-    append(c, 0x01, [headers], Response(c, on_success=(r, m)->merge!(c.server.metadata, m), on_failure=on_init_failure))
+    append(c, 0x01, [headers], Response(c, on_success=(r, m)->merge!(c.server.metadata, isnothing(m) ? Dict() : m), on_failure=on_init_failure))
 
     bolt_sync(c)
     c.packer.supports_bytes = supports(c.server, "bytes")
